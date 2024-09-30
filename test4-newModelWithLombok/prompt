@@ -1,0 +1,8 @@
+create a new model 'bank'
+
+create a new model 'bank' with the following fields and types
+iban with type string
+bic with type string
+account with type number
+
+use lombok

@@ -1,0 +1,19 @@
+src
+    main
+        java
+            de
+                company
+                    projectname
+                        Application.java
+                        controller
+                            HelloWorldController.java
+        resources
+            application.properties
+    test
+        java
+            de
+                company
+                    projectname
+                        controller
+                            HelloWorldControllerTest.java
+pom.xml

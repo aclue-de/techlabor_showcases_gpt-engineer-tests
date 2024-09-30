@@ -1,0 +1,164 @@
+
+2024-09-12T15:03:36.757906
+================================ System Message ================================
+
+You will get information about a codebase that is currently on disk in the current folder.
+The user will ask you to write a script that runs the code in a specific way.
+You will answer with code blocks that include all the necessary terminal commands.
+Do not install globally. Do not use sudo.
+Do not explain the code, just give the commands.
+Do not use placeholders, use example values (like . for a folder argument) if necessary.
+
+
+================================ Human Message =================================
+
+
+        Make a unix script that
+        a) installs dependencies
+        b) runs all necessary parts of the codebase (in parallel if necessary)
+        
+Information about the codebase:
+
+```
+File: create
+1 src
+2     main
+3         java
+4             de
+5                 company
+6                     projectname
+7                         Application.java
+8                         controller
+9                             HelloWorldController.java
+10         resources
+11             application.properties
+12     test
+13         java
+14             de
+15                 company
+16                     projectname
+17                         controller
+18                             HelloWorldControllerTest.java
+19 pom.xml
+
+File: pom.xml
+1 <project xmlns="http://maven.apache.org/POM/4.0.0"
+2          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+3          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+4     <modelVersion>4.0.0</modelVersion>
+5     <groupId>de.company</groupId>
+6     <artifactId>projectname</artifactId>
+7     <version>0.0.1-SNAPSHOT</version>
+8     <packaging>jar</packaging>
+9 
+10     <name>projectname</name>
+11     <description>Demo project for Spring Boot</description>
+12 
+13     <parent>
+14         <groupId>org.springframework.boot</groupId>
+15         <artifactId>spring-boot-starter-parent</artifactId>
+16         <version>2.5.4</version>
+17         <relativePath/> <!-- lookup parent from repository -->
+18     </parent>
+19 
+20     <properties>
+21         <java.version>11</java.version>
+22     </properties>
+23 
+24     <dependencies>
+25         <dependency>
+26             <groupId>org.springframework.boot</groupId>
+27             <artifactId>spring-boot-starter-web</artifactId>
+28         </dependency>
+29 
+30         <dependency>
+31             <groupId>org.springframework.boot</groupId>
+32             <artifactId>spring-boot-starter-test</artifactId>
+33             <scope>test</scope>
+34         </dependency>
+35     </dependencies>
+36 
+37     <build>
+38         <plugins>
+39             <plugin>
+40                 <groupId>org.springframework.boot</groupId>
+41                 <artifactId>spring-boot-maven-plugin</artifactId>
+42             </plugin>
+43         </plugins>
+44     </build>
+45 
+46 </project>
+
+File: src/main/java/de/company/projectname/Application.java
+1 package de.company.projectname;
+2 
+3 import org.springframework.boot.SpringApplication;
+4 import org.springframework.boot.autoconfigure.SpringBootApplication;
+5 
+6 @SpringBootApplication
+7 public class Application {
+8     public static void main(String[] args) {
+9         SpringApplication.run(Application.class, args);
+10     }
+11 }
+
+File: src/main/java/de/company/projectname/controller/HelloWorldController.java
+1 package de.company.projectname.controller;
+2 
+3 import org.springframework.web.bind.annotation.GetMapping;
+4 import org.springframework.web.bind.annotation.RestController;
+5 
+6 @RestController
+7 public class HelloWorldController {
+8 
+9     @GetMapping("/hello")
+10     public String hello() {
+11         return "Hello, World!";
+12     }
+13 }
+
+File: src/main/resources/application.properties
+1 # Empty for now
+
+File: src/test/java/de/company/projectname/controller/HelloWorldControllerTest.java
+1 package de.company.projectname.controller;
+2 
+3 import org.junit.jupiter.api.Test;
+4 import org.springframework.beans.factory.annotation.Autowired;
+5 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+6 import org.springframework.test.web.servlet.MockMvc;
+7 
+8 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+9 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+10 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+11 
+12 @WebMvcTest(HelloWorldController.class)
+13 public class HelloWorldControllerTest {
+14 
+15     @Autowired
+16     private MockMvc mockMvc;
+17 
+18     @Test
+19     public void shouldReturnDefaultMessage() throws Exception {
+20         this.mockMvc.perform(get("/hello"))
+21                 .andExpect(status().isOk())
+22                 .andExpect(content().string("Hello, World!"));
+23     }
+24 }
+
+```
+
+================================== Ai Message ==================================
+
+```sh
+#!/bin/bash
+
+# Install dependencies
+./mvnw clean install
+
+# Run the application
+./mvnw spring-boot:run &
+
+# Run the tests
+./mvnw test
+```

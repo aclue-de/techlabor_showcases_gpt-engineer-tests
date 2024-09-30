@@ -1,0 +1,268 @@
+
+2024-09-13T11:42:21.509381
+UPLOADED FILES:
+File: pom.xml
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>de.company</groupId>
+    <artifactId>projectname</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>projectname</name>
+    <description>Demo project for Spring Boot</description>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.4</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <properties>
+        <java.version>11</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+File: run.sh
+#!/bin/bash
+
+# Install dependencies
+./mvnw clean install
+
+# Run the application
+./mvnw spring-boot:run &
+
+# Run the tests
+./mvnw test
+
+File: src/test/java/de/company/projectname/controller/HelloWorldControllerTest.java
+package de.company.projectname.controller;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@WebMvcTest(HelloWorldController.class)
+public class HelloWorldControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Test
+    public void shouldReturnDefaultMessage() throws Exception {
+        this.mockMvc.perform(get("/hello"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello, World!"));
+    }
+}
+File: src/test/java/de/company/projectname/rest/EmployeeControllerTest.java
+package de.company.projectname.rest;
+
+import de.company.projectname.model.Employee;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.UUID;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.hamcrest.Matchers.is;
+
+@WebMvcTest(EmployeeController.class)
+public class EmployeeControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Test
+    public void shouldReturnMockedEmployee() throws Exception {
+        UUID uuid = UUID.randomUUID();
+        this.mockMvc.perform(get("/employee/" + uuid.toString()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.uuid", is(uuid.toString())))
+                .andExpect(jsonPath("$.firstname", is("John")))
+                .andExpect(jsonPath("$.lastname", is("Doe")));
+    }
+}
+File: src/main/resources/application.properties
+# Empty for now
+File: src/main/java/de/company/projectname/RunApplication.java
+package de.company.projectname;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class RunApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(RunApplication.class, args);
+    }
+}
+
+File: src/main/java/de/company/projectname/controller/HelloWorldController.java
+package de.company.projectname.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HelloWorldController {
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello, World!";
+    }
+}
+File: src/main/java/de/company/projectname/model/Employee.java
+package de.company.projectname.model;
+
+import java.util.UUID;
+
+public class Employee {
+    private UUID uuid;
+    private String lastname;
+    private String firstname;
+
+    // Getters and Setters
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+}
+File: src/main/java/de/company/projectname/rest/EmployeeController.java
+package de.company.projectname.rest;
+
+import de.company.projectname.model.Employee;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
+
+@RestController
+public class EmployeeController {
+
+    @GetMapping("/employee/{uuid}")
+    public Employee find(@PathVariable UUID uuid) {
+        // Mocking an employee for demonstration purposes
+        Employee employee = new Employee();
+        employee.setUuid(uuid);
+        employee.setFirstname("John");
+        employee.setLastname("Doe");
+        return employee;
+    }
+}
+
+PROMPT:
+create a new model 'bank'
+
+create a new model 'bank' with the following fields and types
+iban with type string
+bic with type string
+account with type number
+
+use lombok
+
+2024-09-13T11:42:27.123803
+
+CONSOLE OUTPUT:
+To create a new model `Bank` with the specified fields and types using Lombok, we need to follow these steps:
+
+1. Add Lombok dependency to the `pom.xml`.
+2. Create the `Bank` model class with the specified fields and use Lombok annotations for getters, setters, and other utility methods.
+
+Let's start by updating the `pom.xml` to include the Lombok dependency.
+
+```diff
+--- pom.xml
++++ pom.xml
+@@ -34,6 +34,11 @@
+         </dependency>
+ 
+         <dependency>
++            <groupId>org.projectlombok</groupId>
++            <artifactId>lombok</artifactId>
++            <version>1.18.20</version>
++            <scope>provided</scope>
++        </dependency>
+     </dependencies>
+ 
+     <build>
+```
+
+Next, we will create the `Bank` model class in the appropriate package.
+
+```diff
+--- /dev/null
++++ src/main/java/de/company/projectname/model/Bank.java
+@@ -0,0 +1,18 @@
++package de.company.projectname.model;
++
++import lombok.Data;
++
++@Data
++public class Bank {
++    private String iban;
++    private String bic;
++    private int account;
++}
+```
+
+Here is the summary of the changes:
+1. Added Lombok dependency to `pom.xml`.
+2. Created a new `Bank` model class with fields `iban`, `bic`, and `account` using Lombok annotations.
+
+This concludes a fully working implementation.

@@ -1,0 +1,10 @@
+erstelle ein neues Modell Adresse
+
+Description:
+Eine Adresse hat folgende Felder:
+
+Straße
+Hausnummer
+Postleitzahl
+Ort
+Land

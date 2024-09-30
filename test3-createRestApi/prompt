@@ -1,0 +1,7 @@
+create a REST API
+
+Description:
+We need a REST API to FIND and UPDATE an employee Object:
+- Create a new directory 'model' and create inside 'model' the Class 'Employee' with package and the private fields 'uuid', 'lastname', 'firstname' of type string
+- Create a new directory 'rest' and create inside 'rest' the Class 'EmployeeController' with package and one methode 'find'. The Methode 'find' expected the paramater uuid.
+- Create a JUnit Test to mock an employee and get this mocked employee by calling the new rest api

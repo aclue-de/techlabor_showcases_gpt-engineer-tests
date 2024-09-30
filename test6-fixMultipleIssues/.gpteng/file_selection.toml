@@ -1,0 +1,41 @@
+# Remove '#' to select a file or turn off linting.
+
+# Linting with BLACK (Python) enhances code suggestions from LLMs. To disable linting, uncomment the relevant option in the linting settings.
+
+# gpt-engineer can only read selected files. Including irrelevant files will degrade performance, cost additional tokens and potentially overflow token limit.
+
+[linting]
+# "linting" = "off"
+
+[files]
+ "pom.xml" = "selected"
+ "run.sh" = "selected"
+# "target/projectname-0.0.1-SNAPSHOT.jar" = "selected"
+# "target/projectname-0.0.1-SNAPSHOT.jar.original" = "selected"
+# "target/classes/application.properties" = "selected"
+# "target/maven-archiver/pom.properties" = "selected"
+# "target/surefire-reports/de.company.projectname.controller.HelloWorldControllerTest.txt" = "selected"
+# "target/surefire-reports/de.company.projectname.rest.EmployeeControllerTest.txt" = "selected"
+# "target/surefire-reports/TEST-de.company.projectname.rest.EmployeeControllerTest.xml" = "selected"
+# "target/surefire-reports/TEST-de.company.projectname.controller.HelloWorldControllerTest.xml" = "selected"
+# "target/test-classes/de/company/projectname/controller/HelloWorldControllerTest.class" = "selected"
+# "target/test-classes/de/company/projectname/rest/EmployeeControllerTest.class" = "selected"
+# "target/classes/de/company/projectname/RunApplication.class" = "selected"
+# "target/classes/de/company/projectname/controller/HelloWorldController.class" = "selected"
+# "target/classes/de/company/projectname/model/Adresse.class" = "selected"
+# "target/classes/de/company/projectname/model/Bank.class" = "selected"
+# "target/classes/de/company/projectname/model/Employee.class" = "selected"
+# "target/classes/de/company/projectname/rest/EmployeeController.class" = "selected"
+# "target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" = "selected"
+# "target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" = "selected"
+# "target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" = "selected"
+# "target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" = "selected"
+ "src/test/java/de/company/projectname/controller/HelloWorldControllerTest.java" = "selected"
+ "src/test/java/de/company/projectname/rest/EmployeeControllerTest.java" = "selected"
+ "src/main/resources/application.properties" = "selected"
+ "src/main/java/de/company/projectname/RunApplication.java" = "selected"
+ "src/main/java/de/company/projectname/controller/HelloWorldController.java" = "selected"
+ "src/main/java/de/company/projectname/model/Adresse.java" = "selected"
+ "src/main/java/de/company/projectname/model/Bank.java" = "selected"
+ "src/main/java/de/company/projectname/model/Employee.java" = "selected"
+ "src/main/java/de/company/projectname/rest/EmployeeController.java" = "selected"

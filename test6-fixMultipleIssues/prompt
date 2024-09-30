@@ -1,0 +1,7 @@
+Erfülle mehrere kleinere Aufgaben
+
+Folgende kleine Aufgaben sollen erfüllt werden:
+- HelloWorldController soll verschoben werden, damit der Rest Endpunkt das gleiche Format hat wie andere vorhandenen Endpunkte
+- CRUD Endpunkte sollen für alle Modelle erstellt oder angepasst werden
+- Es soll überall, wo es möglich ist, Lombok verwendet werden
+- Bei den Rest-Endpunkten soll ein String als UUID übergeben werden und nicht unbedint eine passende UUID

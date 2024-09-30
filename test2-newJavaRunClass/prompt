@@ -1,0 +1,9 @@
+create a new java class named 'RunApplication'
+
+Description:
+As Application entrypoint we need a new public java class named 'RunApplication':
+- annotate the class with SpringBootApplication
+- create a main methode and call inside this new methode 'SpringApplication.run(RunApplication.class, args)'
+- add the necessary imports for the annotation an ‘SpringApplication’
+
+- delete files if it makes sense

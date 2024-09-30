@@ -1,0 +1,160 @@
+
+2024-09-13T14:11:55.328946
+In Hunk:@@ -2,5 +2,6 @@
+ 
+ import java.util.UUID;
+ 
++import lombok.Data;
+ 
+-public class Employee {
++@Data
++public class Employee {
+     private UUID uuid;
+     private String lastname;
+     private String firstname;
+- 
+-    // Getters and Setters
+-    public UUID getUuid() {
+-        return uuid;
+-    }
+- 
+-    public void setUuid(UUID uuid) {
+-        this.uuid = uuid;
+-    }
+- 
+-    public String getLastname() {
+-        return lastname;
+-    }
+- 
+-    public void setLastname(String lastname) {
+-        this.lastname = lastname;
+-    }
+- 
+-    public String getFirstname() {
+-        return firstname;
+-    }
+- 
+-    public void setFirstname(String firstname) {
+-        this.firstname = firstname;
+-    }
+ }
+, there was at least one mismatch.
+
+2024-09-13T14:11:59.094783
+In Hunk:@@ -1,10 +1,11 @@
+ package de.company.projectname.model;
+ 
+ import java.util.UUID;
+ 
++import lombok.Data;
+ public class Employee {
+     private UUID uuid;
+     private String lastname;
+     private String firstname;
+ 
+     // Getters and Setters
+     public UUID getUuid() {
+         return uuid;
+     }
+ 
+     public void setUuid(UUID uuid) {
+         this.uuid = uuid;
+     }
+ 
+     public String getLastname() {
+         return lastname;
+     }
+ 
+     public void setLastname(String lastname) {
+         this.lastname = lastname;
+     }
+ 
+     public String getFirstname() {
+-public class Employee {
++@Data
++public class Employee {
+     private UUID uuid;
+     private String lastname;
+     private String firstname;
+-}
++}
+, there was at least one mismatch.
+
+2024-09-13T14:12:05.601861
+In Hunk:@@ -1,10 +1,7 @@
+ package de.company.projectname.model;
+ 
+ import java.util.UUID;
+ 
++import lombok.Data;
+ 
+-public class Employee {
+-    private UUID uuid;
+-    private String lastname;
+-    private String firstname;
+-
+-    // Getters and Setters
+-    public UUID getUuid() {
+-        return uuid;
+-    }
+-
+-    public void setUuid(UUID uuid) {
+-        this.uuid = uuid;
+-    }
+-
+-    public String getLastname() {
+-        return lastname;
+-    }
+-
+-    public void setLastname(String lastname) {
+-        this.lastname = lastname;
+-    }
+-
+-    public String getFirstname() {
+-        return firstname;
+-    }
+-
+-    public void setFirstname(String firstname) {
+-        this.firstname = firstname;
+-    }
++@Data
++public class Employee {
++    private UUID uuid;
++    private String lastname;
++    private String firstname;
+ }
+, there was at least one mismatch.
+
+In Hunk:@@ -25,6 +24,7 @@
+         <dependency>
+         <dependency>
+         <dependency>
+             <groupId>org.projectlombok</groupId>
+             <artifactId>lombok</artifactId>
+             <version>1.18.20</version>
+             <scope>provided</scope>
+         </dependency>
+         <dependency>
+             <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-starter-web</artifactId>
+         </dependency>
+ 
+         <dependency>
+             <groupId>org.springframework.boot</groupId>
+             <artifactId>spring-boot-starter-test</artifactId>
+             <scope>test</scope>
+         </dependency>
+     </dependencies>
+ 
+     <build>
+         <plugins>
+         <plugins>
+             <plugin>
+                 <groupId>org.springframework.boot</groupId>
+                 <artifactId>spring-boot-maven-plugin</artifactId>
+             </plugin>
+         </plugins>
+     </build>
+ 
+ </project>
+, there was at least one mismatch.

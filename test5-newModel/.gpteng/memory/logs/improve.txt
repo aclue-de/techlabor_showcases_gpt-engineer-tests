@@ -1,0 +1,292 @@
+
+2024-09-13T11:34:36.156757
+================================ System Message ================================
+
+You will get instructions for code to write.
+You will write a very long answer. Make sure that every detail of the architecture is, in the end, implemented as code.
+Think step by step and reason yourself to the correct decisions to make sure we get it right.
+Make changes to existing code and implement new code in the unified git diff syntax. When implementing new code, First lay out the names of the core classes, functions, methods that will be necessary, As well as a quick comment on their purpose.
+
+You will output the content of each file necessary to achieve the goal, including ALL code.
+Output requested code changes and new code in the unified "git diff" syntax. Example:
+
+```diff
+--- example.txt
++++ example.txt
+@@ -6,3 +6,4 @@
+     line content A
+     line content B
++    new line added
+-    original line X
++    modified line X with changes
+@@ -26,4 +27,5 @@
+         condition check:
+-            action for condition A
++            if certain condition is met:
++                alternative action for condition A
+         another condition check:
+-            action for condition B
++            modified action for condition B
+```
+
+Example of a git diff creating a new file:
+
+```diff
+--- /dev/null
++++ new_file.txt
+@@ -0,0 +1,3 @@
++First example line
++
++Last example line
+```
+-A program will apply the diffs you generate exactly to the code, so diffs must be precise and unambiguous!
+-Every diff must be fenced with triple backtick ```.
+-The file names at the beginning of a diff, (lines starting with --- and +++) is the relative path to the file before and after the diff.
+-LINES TO BE REMOVED (starting with single -) AND LINES TO BE RETAIN (no starting symbol) HAVE TO REPLICATE THE DIFFED HUNK OF THE CODE EXACTLY LINE BY LINE. KEEP THE NUMBER OF RETAIN LINES SMALL IF POSSIBLE.
+-EACH LINE IN THE SOURCE FILES STARTS WITH A LINE NUMBER, WHICH IS NOT PART OF THE SOURCE CODE. NEVER TRANSFER THESE LINE NUMBERS TO THE DIFF HUNKS.
+-AVOID STARTING A HUNK WITH AN EMPTY LINE.
+-ALL DIFFS WILL BE APPLIED SIMULTANEOUSLY, AVOID SEQUENTIAL HUNKS.
+
+
+As far as compatible with the user request, start with the "entrypoint" file, then go to the ones that are imported by that file, and so on.
+Please note that the code should be fully functional. No placeholders.
+
+Follow a language and framework appropriate best practice file naming convention.
+Make sure that files contain all imports, types etc.  The code should be fully functional. Make sure that code in different files are compatible with each other.
+Ensure to implement all code, if you are unsure, write a plausible implementation.
+Include module dependency or package manager dependency definition file.
+Before you finish, double check that all parts of the architecture is present in the files.
+
+When you are done, write finish with "this concludes a fully working implementation".
+
+Useful to know:
+Almost always put different classes in different files.
+Always use the programming language the user asks for.
+For Python, you always create an appropriate requirements.txt file.
+For NodeJS, you always create an appropriate package.json file.
+Always add a comment briefly describing the purpose of the function definition.
+Add comments explaining very complex bits of logic.
+Always follow the best practices for the requested languages for folder/file structure and how to package the project.
+
+
+Python toolbelt preferences:
+- pytest
+- dataclasses
+
+
+================================ Human Message =================================
+
+```
+File: pom.xml
+1 <project xmlns="http://maven.apache.org/POM/4.0.0"
+2          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+3          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+4     <modelVersion>4.0.0</modelVersion>
+5     <groupId>de.company</groupId>
+6     <artifactId>projectname</artifactId>
+7     <version>0.0.1-SNAPSHOT</version>
+8     <packaging>jar</packaging>
+9 
+10     <name>projectname</name>
+11     <description>Demo project for Spring Boot</description>
+12 
+13     <parent>
+14         <groupId>org.springframework.boot</groupId>
+15         <artifactId>spring-boot-starter-parent</artifactId>
+16         <version>2.5.4</version>
+17         <relativePath/> <!-- lookup parent from repository -->
+18     </parent>
+19 
+20     <properties>
+21         <java.version>11</java.version>
+22     </properties>
+23 
+24     <dependencies>
+25         <dependency>
+26             <groupId>org.projectlombok</groupId>
+27             <artifactId>lombok</artifactId>
+28             <version>1.18.20</version>
+29             <scope>provided</scope>
+30         </dependency>
+31         <dependency>
+32             <groupId>org.springframework.boot</groupId>
+33             <artifactId>spring-boot-starter-web</artifactId>
+34         </dependency>
+35 
+36         <dependency>
+37             <groupId>org.springframework.boot</groupId>
+38             <artifactId>spring-boot-starter-test</artifactId>
+39             <scope>test</scope>
+40         </dependency>
+41     </dependencies>
+42 
+43     <build>
+44         <plugins>
+45             <plugin>
+46                 <groupId>org.springframework.boot</groupId>
+47                 <artifactId>spring-boot-maven-plugin</artifactId>
+48             </plugin>
+49         </plugins>
+50     </build>
+51 
+52 </project>
+
+File: run.sh
+1 #!/bin/bash
+2 
+3 # Install dependencies
+4 ./mvnw clean install
+5 
+6 # Run the application
+7 ./mvnw spring-boot:run &
+8 
+9 # Run the tests
+10 ./mvnw test
+11 
+
+File: src/test/java/de/company/projectname/controller/HelloWorldControllerTest.java
+1 package de.company.projectname.controller;
+2 
+3 import org.junit.jupiter.api.Test;
+4 import org.springframework.beans.factory.annotation.Autowired;
+5 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+6 import org.springframework.test.web.servlet.MockMvc;
+7 
+8 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+9 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+10 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+11 
+12 @WebMvcTest(HelloWorldController.class)
+13 public class HelloWorldControllerTest {
+14 
+15     @Autowired
+16     private MockMvc mockMvc;
+17 
+18     @Test
+19     public void shouldReturnDefaultMessage() throws Exception {
+20         this.mockMvc.perform(get("/hello"))
+21                 .andExpect(status().isOk())
+22                 .andExpect(content().string("Hello, World!"));
+23     }
+24 }
+
+File: src/test/java/de/company/projectname/rest/EmployeeControllerTest.java
+1 package de.company.projectname.rest;
+2 
+3 import de.company.projectname.model.Employee;
+4 import org.junit.jupiter.api.Test;
+5 import org.springframework.beans.factory.annotation.Autowired;
+6 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+7 import org.springframework.test.web.servlet.MockMvc;
+8 
+9 import java.util.UUID;
+10 
+11 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+12 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+13 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+14 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+15 import static org.hamcrest.Matchers.is;
+16 
+17 @WebMvcTest(EmployeeController.class)
+18 public class EmployeeControllerTest {
+19 
+20     @Autowired
+21     private MockMvc mockMvc;
+22 
+23     @Test
+24     public void shouldReturnMockedEmployee() throws Exception {
+25         UUID uuid = UUID.randomUUID();
+26         this.mockMvc.perform(get("/employee/" + uuid.toString()))
+27                 .andExpect(status().isOk())
+28                 .andExpect(jsonPath("$.uuid", is(uuid.toString())))
+29                 .andExpect(jsonPath("$.firstname", is("John")))
+30                 .andExpect(jsonPath("$.lastname", is("Doe")));
+31     }
+32 }
+
+File: src/main/resources/application.properties
+1 # Empty for now
+
+File: src/main/java/de/company/projectname/RunApplication.java
+1 package de.company.projectname;
+2 
+3 import org.springframework.boot.SpringApplication;
+4 import org.springframework.boot.autoconfigure.SpringBootApplication;
+5 
+6 @SpringBootApplication
+7 public class RunApplication {
+8     public static void main(String[] args) {
+9         SpringApplication.run(RunApplication.class, args);
+10     }
+11 }
+12 
+
+File: src/main/java/de/company/projectname/controller/HelloWorldController.java
+1 package de.company.projectname.controller;
+2 
+3 import org.springframework.web.bind.annotation.GetMapping;
+4 import org.springframework.web.bind.annotation.RestController;
+5 
+6 @RestController
+7 public class HelloWorldController {
+8 
+9     @GetMapping("/hello")
+10     public String hello() {
+11         return "Hello, World!";
+12     }
+13 }
+
+File: src/main/java/de/company/projectname/model/Bank.java
+1 package de.company.projectname.model;
+2 
+3 import lombok.Data;
+4 
+5 @Data
+6 public class Bank {
+7     private String iban;
+8     private String bic;
+9     private int account;
+10 }
+
+```
+
+Request: erstelle ein neues Modell Adresse
+
+Description:
+Eine Adresse hat folgende Felder:
+
+Straße
+Hausnummer
+Postleitzahl
+Ort
+Land
+
+================================== Ai Message ==================================
+
+To implement the new model `Adresse` with the specified fields, we will follow these steps:
+
+1. Create a new Java class `Adresse` in the `model` package.
+2. Define the fields `straße`, `hausnummer`, `postleitzahl`, `ort`, and `land` in the `Adresse` class.
+3. Use Lombok annotations to generate getters, setters, and other utility methods.
+
+Let's start by creating the new `Adresse` model class.
+
+```diff
+--- /dev/null
++++ src/main/java/de/company/projectname/model/Adresse.java
+@@ -0,0 +1,13 @@
++package de.company.projectname.model;
++
++import lombok.Data;
++
++@Data
++public class Adresse {
++    private String straße;
++    private String hausnummer;
++    private String postleitzahl;
++    private String ort;
++    private String land;
++}
+```
+
+This concludes a fully working implementation.

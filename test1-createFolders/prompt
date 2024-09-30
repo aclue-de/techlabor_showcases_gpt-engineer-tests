@@ -1,0 +1,13 @@
+Create directories for a spring boot project
+
+Description:
+we need the following directories:
+
+src
+    main
+        java
+            de
+                company
+                    PROJECTNAME
+        resources
+    test
