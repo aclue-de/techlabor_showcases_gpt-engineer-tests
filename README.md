@@ -4,14 +4,17 @@ Ein kleiner Test des Tools [gpt-engineer](https://github.com/gpt-engineer-org/gp
 
 #### Commands
 
+CLI Editor to select files for the context (to improve existing code)
 ``` CLI Editor to select files for the context (to improve existing code)
 export EDITOR="nano"
 ```
 
+Create new code
 ``` Create new code
 gpte <project_dir>
 ```
 
+Improve existing code
 ``` Improve existing code
 gpte <project_dir> -i
 ```
