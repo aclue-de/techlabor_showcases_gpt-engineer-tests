@@ -1,19 +1,5 @@
 ## Vorgehen mit den bereits bekannten Tests aus Showcase - AI Junior Developer V1
 
-#### Commands
-
-``` CLI Editor to select files for the context (to improve existing code)
-export EDITOR="nano"
-```
-
-``` Create new code
-gpte <project_dir>
-```
-
-``` Improve existing code
-gpte <project_dir> -i
-```
-
 #### Aufgaben
 
 In Aufgabe 1 wird Code erstellt, dieser wird dann immer weiter in die nächste Übung kopiert, um diesen Code dann in den folgenden Übungen anzupassen.
